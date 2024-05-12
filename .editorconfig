@@ -1,0 +1,45 @@
+# <editorconfig.org> describes a language that can be used to provide
+# some basic settings to text editors for how a file is represented in
+# text. Many editors understand this language, either through an
+# extension or natively, and when  this configuration is present will
+# apply it before every write.
+
+# Universal settings
+[*]
+charset = utf-8
+end_of_line = crlf
+insert_final_newline = true
+trim_trailing_whitespace = true
+indent_style = space
+
+[.editorconfig]
+
+# CMake scripts
+[{CMakeLists.txt,*.cmake}]
+indent_size = 4
+
+# C/++ source files
+# .c or .h
+# .cpp or .hpp
+# (any of the above).in
+# These are subordinate to the clang-format config.
+[*.{c,h}{,pp}{,.in}]
+end_of_line = crlf
+indent_size = 4
+
+# C# and Visual Studio
+[*.{cs,sln,*proj}]
+end_of_line = crlf
+indent_size = 4
+
+# Markdown text
+[*.md]
+indent_size = 2
+
+# JSON data files
+[*.json]
+indent_size = 4
+
+# YAML configuration files
+[*.{yml,yaml}]
+indent_size = 2

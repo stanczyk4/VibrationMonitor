@@ -1,0 +1,47 @@
+# This file is written for ClangFormat 9.0.0 or higher.
+
+Language: Cpp
+BasedOnStyle: Google
+
+IndentWidth: 4
+
+# Brace wrapping: Allman style, except for extern "C" blocks.
+BreakBeforeBraces: Custom
+BraceWrapping:
+  AfterClass: true
+  AfterControlStatement: true
+  AfterEnum: true
+  AfterFunction: true
+  AfterNamespace: true
+  AfterObjCDeclaration: true
+  AfterStruct: true
+  AfterUnion: true
+  AfterExternBlock: true
+  BeforeCatch: true
+  BeforeElse: true
+  SplitEmptyFunction: true
+  SplitEmptyRecord: true
+  SplitEmptyNamespace: true
+
+# Misc other options
+AccessModifierOffset: -2
+AlignAfterOpenBracket: Align
+AlignConsecutiveDeclarations: false
+BinPackParameters: false
+AlignOperands: true
+AllowAllParametersOfDeclarationOnNextLine: false
+AllowShortBlocksOnASingleLine: false
+AllowShortCaseLabelsOnASingleLine: false
+AllowShortIfStatementsOnASingleLine: false
+AllowShortFunctionsOnASingleLine: InlineOnly
+AllowShortLoopsOnASingleLine: false
+BreakConstructorInitializers: BeforeComma
+ColumnLimit: 120
+DerivePointerAlignment: false
+PointerAlignment: Left
+SortIncludes: true
+
+# Leave Doxygen directives alone
+CommentPragmas: '^(!? +\\|!<)'
+
+# LineEnding: DeriveLF

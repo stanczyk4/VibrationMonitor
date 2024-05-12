@@ -1,2 +1,21 @@
 altium/PCB_Project/History/**
 altium/PCB_Project/__Previews/**
+
+build
+
+# VSCode files
+/**/.vscode/*
+!/.vscode/launch.json
+!/.vscode/extensions.json
+
+# PyTest
+/**/__pycache__
+/**/.pytest_cache
+
+# Imgui #
+/**/imgui.ini
+
+# Excel temporary
+/**/~$*.xlsx
+
+*nul.d
