@@ -11,6 +11,10 @@ target_include_directories(${CMAKE_PROJECT_NAME} PUBLIC
     ${CMAKE_CURRENT_LIST_DIR}
 )
 
+target_link_libraries(${CMAKE_PROJECT_NAME} PUBLIC
+    etl
+)
+
 ### START NRF5 SDK ###
 target_sources(${CMAKE_PROJECT_NAME} PRIVATE
     # ${NRF5_SDK_PATH}/modules/nrfx/mdk/gcc_startup_nrf52.S
