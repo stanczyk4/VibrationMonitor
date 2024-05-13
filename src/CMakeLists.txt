@@ -4,13 +4,15 @@ include(nrf5/nrf5)
 
 target_sources(${CMAKE_PROJECT_NAME} PRIVATE
     main.cpp
-    sys.cpp
 
+    gcc/sys.cpp
     freertos/hooks.cpp
 )
 
 target_include_directories(${CMAKE_PROJECT_NAME} PUBLIC
     ${CMAKE_CURRENT_LIST_DIR}
+    gcc
+    nrfx
 )
 
 target_link_libraries(${CMAKE_PROJECT_NAME} PUBLIC
@@ -338,7 +340,7 @@ target_compile_definitions(${CMAKE_PROJECT_NAME} PUBLIC
 
 target_link_options(${CMAKE_PROJECT_NAME} PUBLIC
     "LINKER:-Map=${CMAKE_CURRENT_BINARY_DIR}/${EXE_NAME}.map,--cref"
-    -T ${CMAKE_CURRENT_LIST_DIR}/generic_gcc_nrf52.ld
+    -T ${CMAKE_CURRENT_LIST_DIR}/nrfx/generic_gcc_nrf52.ld
 )
 
-set_target_properties(${CMAKE_PROJECT_NAME} PROPERTIES LINK_DEPENDS ${CMAKE_CURRENT_LIST_DIR}/generic_gcc_nrf52.ld)
+set_target_properties(${CMAKE_PROJECT_NAME} PROPERTIES LINK_DEPENDS ${CMAKE_CURRENT_LIST_DIR}/nrfx/generic_gcc_nrf52.ld)
