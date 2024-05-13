@@ -28,17 +28,22 @@
             }
         },
         {
-            "name": "nrf52840",
-            "displayName": "GCC NRF52840",
+            "name": "xiao_ble_sense",
+            "displayName": "GCC XIAO BLE SENSE",
             "inherits": "ninja-debug",
             "binaryDir": "${sourceDir}/build/${presetName}",
             "installDir": "${sourceDir}/build/out/${presetName}",
             "cacheVariables": {
                 "TOOLCHAIN_OPTIMIZATION_FLAG": "-Og",
-                "SANDBOX_TARGET": "STM32",
-                "SANDBOX_CHIP": "STM32G473xx"
+                "NCS_TOOLCHAIN_VERSION": "NONE",
+                "BOARD": "xiao_ble_sense",
+                "CONFIG_CORTEX_M_DEBUG_MONITOR_HOOK": "y",
+                "CONFIG_DEBUG_OPTIMIZATIONS": "y",
+                "CONFIG_DEBUG_THREAD_INFO": "y",
+                "CONFIG_SEGGER_DEBUGMON": "y",
+                "CACHED_CONF_FILE": "${sourceDir}/prj.conf"
             },
-            "toolchainFile": "${sourceDir}/cmake/toolchains/gcc/gcc_arm_m4f_toolchain.cmake"
+            "toolchainFile": "${sourceDir}/cmake/toolchains/gcc/gcc_arm_toolchain.cmake"
         }
     ]
 }
