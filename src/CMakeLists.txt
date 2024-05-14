@@ -14,3 +14,7 @@ target_include_directories(app PUBLIC
 target_link_libraries(app PUBLIC
     etl
 )
+
+target_compile_options(app PUBLIC
+    "-w" # TODO enable warnings
+)

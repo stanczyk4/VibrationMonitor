@@ -12,10 +12,3 @@ include(CPM)
 
 add_subdirectory(third_party)
 add_subdirectory(src)
-
-install(DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/zephyr/out DESTINATION ${CMAKE_SOURCE_DIR}/build/out)
-
-add_custom_command(TARGET app POST_BUILD
-    COMMAND "${CMAKE_COMMAND}" --install "${CMAKE_BINARY_DIR}"
-    COMMENT "Running post-build install"
-)

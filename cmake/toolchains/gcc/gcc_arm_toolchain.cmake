@@ -62,28 +62,29 @@ endif()
 # https://gcc.gnu.org/onlinedocs/gcc/Optimize-Options.html#Optimize-Options
 # https://gcc.gnu.org/onlinedocs/gcc/C-Dialect-Options.html#C-Dialect-Options
 # https://gcc.gnu.org/onlinedocs/gcc/Preprocessor-Options.html
-# set(GCC_ASM_FLAGS ${GCC_ASM_FLAGS}
+set(GCC_ASM_FLAGS ${GCC_ASM_FLAGS}
 #   "-D__STARTUP_CLEAR_BSS"
 #   "-mapcs" # Synonym for -mapcs-frame, generate stack frame that is compliant with the ARM procedure call standard for all functions
 #   "-fno-common" # Default setting, specifies compiler placement for uninitialized global variables to be in BSS
 #   "-ffunction-sections" # Place each function item into its own section in the output file, this helps the linker optimize code
 #   "-ffreestanding" # Asserts that the target is a freestanding environment, ie one which the standard lib may not exist
 #   "-fno-builtin" # Do not recognize built in function that do not begin with __buildin_ as prefix
-# )
+)
 
-# set(GCC_C_FLAGS ${GCC_C_FLAGS}
+set(GCC_C_FLAGS ${GCC_C_FLAGS}
 #   "-DPRINTF_FLOAT_ENABLE=0"
 #   "-DSCANF_FLOAT_ENABLE=0"
 #   "-DPRINTF_ADVANCED_ENABLE=0"
 #   "-DSCANF_ADVANCED_ENABLE=0"
-# )
+)
 
-# set(GCC_CXX_FLAGS ${GCC_CXX_FLAGS}
+set(GCC_CXX_FLAGS ${GCC_CXX_FLAGS}
 #   "-Wno-register"
 #   "-fno-threadsafe-statics" # reduce flash by making statics/singleton not thread safe, since we arent using a threaded system
-# )
+    "-fpermissive"
+)
 
-# set(GCC_COMMON_C_CXX_FLAGS
+set(GCC_COMMON_C_CXX_FLAGS
 #   # "--specs=nosys.specs"
 #   "--specs=nano.specs"
 #   "-mapcs" # Synonym for -mapcs-frame, generate stack frame that is compliant with the ARM procedure call standard for all functions
@@ -94,10 +95,10 @@ endif()
 #   "-fdata-sections" # Place each data item into its own section in the output file, this helps the linker optimize code
 #   "-ffreestanding" # Asserts that the target is a freestanding environment, ie one which the standard lib may not exist
 #   "-fno-builtin" # Do not recognize built in function that do not begin with __buildin_ as prefix
-# )
+)
 
-# list(APPEND GCC_C_FLAGS ${GCC_COMMON_C_CXX_FLAGS})
-# list(APPEND GCC_CXX_FLAGS ${GCC_COMMON_C_CXX_FLAGS})
+list(APPEND GCC_C_FLAGS ${GCC_COMMON_C_CXX_FLAGS})
+list(APPEND GCC_CXX_FLAGS ${GCC_COMMON_C_CXX_FLAGS})
 
 # # Debug only flags for ASM
 # set(GCC_ASM_DEBUG_FLAGS ${GCC_ASM_DEBUG_FLAGS}
@@ -122,15 +123,15 @@ endif()
 #   "$<$<CONFIG:RELEASE>:NDEBUG>"
 # )
 
-# add_compile_options(
-#   "$<$<COMPILE_LANGUAGE:ASM>:${GCC_ASM_FLAGS}>" # Add ASM flags
-#   "$<$<COMPILE_LANGUAGE:C>:${GCC_C_FLAGS}>" # Add C flags
-#   "$<$<COMPILE_LANGUAGE:CXX>:${GCC_CXX_FLAGS}>" # Add CXX flags
-#   "$<$<AND:$<CONFIG:DEBUG>,$<COMPILE_LANGUAGE:ASM>>:${GCC_ASM_DEBUG_FLAGS}>" # Add ASM debug flags
-#   "$<$<AND:$<CONFIG:DEBUG>,$<COMPILE_LANGUAGE:C,CXX>>:${GCC_COMMON_C_CXX_DEBUG_FLAGS}>" # Add common C/CXX debug flags
-#   "$<$<AND:$<CONFIG:RELEASE>,$<COMPILE_LANGUAGE:ASM>>:${GCC_ASM_RELEASE_FLAGS}>" # Add ASM release flags
-#   "$<$<AND:$<CONFIG:RELEASE>,$<COMPILE_LANGUAGE:C,CXX>>:${GCC_COMMON_C_CXX_RELEASE_FLAGS}>" # Add common C/CXX release flags
-# )
+add_compile_options(
+  "$<$<COMPILE_LANGUAGE:ASM>:${GCC_ASM_FLAGS}>" # Add ASM flags
+  "$<$<COMPILE_LANGUAGE:C>:${GCC_C_FLAGS}>" # Add C flags
+  "$<$<COMPILE_LANGUAGE:CXX>:${GCC_CXX_FLAGS}>" # Add CXX flags
+  "$<$<AND:$<CONFIG:DEBUG>,$<COMPILE_LANGUAGE:ASM>>:${GCC_ASM_DEBUG_FLAGS}>" # Add ASM debug flags
+  "$<$<AND:$<CONFIG:DEBUG>,$<COMPILE_LANGUAGE:C,CXX>>:${GCC_COMMON_C_CXX_DEBUG_FLAGS}>" # Add common C/CXX debug flags
+  "$<$<AND:$<CONFIG:RELEASE>,$<COMPILE_LANGUAGE:ASM>>:${GCC_ASM_RELEASE_FLAGS}>" # Add ASM release flags
+  "$<$<AND:$<CONFIG:RELEASE>,$<COMPILE_LANGUAGE:C,CXX>>:${GCC_COMMON_C_CXX_RELEASE_FLAGS}>" # Add common C/CXX release flags
+)
 
 # # GCC Link options https://gcc.gnu.org/onlinedocs/gcc/Link-Options.html
 # # LINKER inserts a -Wl,option where needed
