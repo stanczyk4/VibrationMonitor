@@ -1,6 +1,9 @@
 #include <ctype.h>
+#include <stddef.h>
 #include <stdlib.h>
 #include <version.h>
+#include <zephyr/bluetooth/bluetooth.h>
+#include <zephyr/bluetooth/hci.h>
 #include <zephyr/device.h>
 #include <zephyr/drivers/gpio.h>
 #include <zephyr/drivers/sensor.h>
@@ -9,6 +12,9 @@
 #include <zephyr/logging/log.h>
 #include <zephyr/posix/unistd.h>
 #include <zephyr/shell/shell.h>
+#include <zephyr/sys/printk.h>
+#include <zephyr/sys/util.h>
+#include <zephyr/types.h>
 #include <zephyr/usb/usb_device.h>
 
 /* The devicetree node identifier for the "led0" alias. */
@@ -93,6 +99,11 @@ static int set_sampling_freq(const struct device* dev)
     return 0;
 }
 
+extern "C"
+{
+    extern void bt_ready(int err);
+}
+
 int main(void)
 {
     const struct device* dev_shell;
@@ -124,6 +135,12 @@ int main(void)
     k_timer_start(&log_timer, K_MSEC(1000), K_MSEC(1000));
 
     uint32_t dtr = 0;
+
+    int err = bt_enable(bt_ready);
+    if (err)
+    {
+        printk("Bluetooth init failed (err %d)\n", err);
+    }
 
     while (!dtr)
     {
