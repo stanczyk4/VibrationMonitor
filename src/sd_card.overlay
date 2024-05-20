@@ -1,0 +1,13 @@
+&spi2 {
+    sdhc0: sdhc@0 {
+        compatible = "zephyr,sdhc-spi-slot";
+        reg = <0>;
+        status = "okay";
+        label = "SDHC_0";
+        mmc {
+                compatible = "zephyr,sdmmc-disk";
+                status = "okay";
+        };
+        spi-max-frequency = <20000000>;
+    };
+};

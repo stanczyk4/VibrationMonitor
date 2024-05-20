@@ -3,6 +3,7 @@ cmake_minimum_required(VERSION 3.27)
 target_sources(app PRIVATE
     main.cpp
     bt.c
+    sd.cpp
 
     # gcc/sys.cpp
 )

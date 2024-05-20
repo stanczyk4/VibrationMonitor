@@ -1,5 +1,6 @@
 #include <ctype.h>
 #include <stddef.h>
+#include <stdio.h>
 #include <stdlib.h>
 #include <version.h>
 #include <zephyr/bluetooth/bluetooth.h>
@@ -8,14 +9,18 @@
 #include <zephyr/drivers/gpio.h>
 #include <zephyr/drivers/sensor.h>
 #include <zephyr/drivers/uart.h>
+#include <zephyr/fs/fs.h>
 #include <zephyr/kernel.h>
 #include <zephyr/logging/log.h>
 #include <zephyr/posix/unistd.h>
 #include <zephyr/shell/shell.h>
+#include <zephyr/storage/disk_access.h>
 #include <zephyr/sys/printk.h>
 #include <zephyr/sys/util.h>
 #include <zephyr/types.h>
 #include <zephyr/usb/usb_device.h>
+
+LOG_MODULE_REGISTER(main);
 
 /* The devicetree node identifier for the "led0" alias. */
 #define LED0_NODE DT_ALIAS(led0)
@@ -104,6 +109,8 @@ extern "C"
     extern void bt_ready(int err);
 }
 
+extern int mount_sd_card(void);
+
 int main(void)
 {
     const struct device* dev_shell;
@@ -117,6 +124,45 @@ int main(void)
         printk("%s: device not ready.\n", dev_shell->name);
         return 0;
     }
+
+    // const struct device* dev_sdhc;
+    // // dev_sdhc = DEVICE_DT_GET(DT_NODELABEL(sdhc0));
+
+    // disk_access_init(dev_sdhc);
+    /** SD card mount test **/
+
+    if (mount_sd_card())
+    {
+        printk("Failed to mount SD card\n");
+        return -1;
+    }
+    else
+    {
+        printk("Successfully mounted SD card\n");
+    }
+    int ret = 0;
+
+    char file_data_buffer[200];
+    struct fs_file_t data_filp;
+    fs_file_t_init(&data_filp);
+
+    char file_ch;
+    ret = fs_unlink("/SD:/test_data.txt");
+
+    ret = fs_open(&data_filp, "/SD:/test_data.txt", FS_O_WRITE | FS_O_CREATE);
+    if (ret)
+    {
+        printk("%s -- failed to create file (err = %d)\n", __func__, ret);
+        return -2;
+    }
+    else
+    {
+        printk("%s - successfully created file\n", __func__);
+    }
+
+    sprintf(file_data_buffer, "hello world!\n");
+    ret = fs_write(&data_filp, file_data_buffer, strlen(file_data_buffer));
+    fs_close(&data_filp);
 
     dev_sensor = DEVICE_DT_GET(DT_NODELABEL(lsm6ds3tr_c));
 

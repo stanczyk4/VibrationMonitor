@@ -41,7 +41,8 @@
                 "CONFIG_DEBUG_OPTIMIZATIONS": "y",
                 "CONFIG_DEBUG_THREAD_INFO": "y",
                 "CONFIG_SEGGER_DEBUGMON": "y",
-                "CACHED_CONF_FILE": "${sourceDir}/prj.conf"
+                "CACHED_CONF_FILE": "${sourceDir}/prj.conf",
+                "DTC_OVERLAY_FILE": "${sourceDir}/src/sd_card.overlay"
             },
             "toolchainFile": "${sourceDir}/cmake/toolchains/gcc/gcc_arm_toolchain.cmake"
         }
