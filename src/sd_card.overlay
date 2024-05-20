@@ -10,4 +10,9 @@
         };
         spi-max-frequency = <20000000>;
     };
+    cs-gpios = <&gpio1 12 0>;
+};
+
+&uart0 {
+    status = "disabled";
 };
