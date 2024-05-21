@@ -74,20 +74,20 @@ int mount_sd_card(void)
 
     if (disk_access_init(disk_pdrv) != 0)
     {
-        printk("Storage init ERROR!");
+        printk("Storage init ERROR!\n");
         return -1;
     }
 
     if (disk_access_ioctl(disk_pdrv, DISK_IOCTL_GET_SECTOR_COUNT, &block_count))
     {
-        printk("Unable to get sector count");
+        printk("Unable to get sector count\n");
         return -1;
     }
     printk("Block count %u", block_count);
 
     if (disk_access_ioctl(disk_pdrv, DISK_IOCTL_GET_SECTOR_SIZE, &block_size))
     {
-        printk("Unable to get sector size");
+        printk("Unable to get sector size\n");
         return -1;
     }
     printk("Sector size %u\n", block_size);

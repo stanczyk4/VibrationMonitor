@@ -34,14 +34,12 @@
             "binaryDir": "${sourceDir}/build/${presetName}",
             "installDir": "${sourceDir}/build/out/${presetName}",
             "cacheVariables": {
-                "TOOLCHAIN_OPTIMIZATION_FLAG": "-Og",
-                "NCS_TOOLCHAIN_VERSION": "NONE",
-                "BOARD": "xiao_ble_sense",
+                "BOARD": "xiao_ble/nrf52840/sense",
                 "CONFIG_CORTEX_M_DEBUG_MONITOR_HOOK": "y",
                 "CONFIG_DEBUG_OPTIMIZATIONS": "y",
                 "CONFIG_DEBUG_THREAD_INFO": "y",
                 "CONFIG_SEGGER_DEBUGMON": "y",
-                "CACHED_CONF_FILE": "${sourceDir}/prj.conf",
+                "CONF_FILE": "${sourceDir}/prj.conf",
                 "DTC_OVERLAY_FILE": "${sourceDir}/src/sd_card.overlay"
             },
             "toolchainFile": "${sourceDir}/cmake/toolchains/gcc/gcc_arm_toolchain.cmake"

@@ -125,45 +125,6 @@ int main(void)
         return 0;
     }
 
-    // const struct device* dev_sdhc;
-    // // dev_sdhc = DEVICE_DT_GET(DT_NODELABEL(sdhc0));
-
-    // disk_access_init(dev_sdhc);
-    /** SD card mount test **/
-
-    if (mount_sd_card())
-    {
-        printk("Failed to mount SD card\n");
-        return -1;
-    }
-    else
-    {
-        printk("Successfully mounted SD card\n");
-    }
-    int ret = 0;
-
-    char file_data_buffer[200];
-    struct fs_file_t data_filp;
-    fs_file_t_init(&data_filp);
-
-    char file_ch;
-    ret = fs_unlink("/SD:/test_data.txt");
-
-    ret = fs_open(&data_filp, "/SD:/test_data.txt", FS_O_WRITE | FS_O_CREATE);
-    if (ret)
-    {
-        printk("%s -- failed to create file (err = %d)\n", __func__, ret);
-        return -2;
-    }
-    else
-    {
-        printk("%s - successfully created file\n", __func__);
-    }
-
-    sprintf(file_data_buffer, "hello world!\n");
-    ret = fs_write(&data_filp, file_data_buffer, strlen(file_data_buffer));
-    fs_close(&data_filp);
-
     dev_sensor = DEVICE_DT_GET(DT_NODELABEL(lsm6ds3tr_c));
 
     if (!device_is_ready(dev_sensor))
@@ -187,6 +148,37 @@ int main(void)
     {
         printk("Bluetooth init failed (err %d)\n", err);
     }
+
+    if (mount_sd_card())
+    {
+        printk("Failed to mount SD card\n");
+        return -1;
+    }
+    else
+    {
+        printk("Successfully mounted SD card\n");
+    }
+    // int ret = 0;
+
+    // char file_data_buffer[200];
+    // struct fs_file_t data_filp;
+    // fs_file_t_init(&data_filp);
+
+    // char file_ch;
+    // ret = fs_unlink("/SD:/test_data.txt");
+
+    // ret = fs_open(&data_filp, "/SD:/test_data.txt", FS_O_WRITE | FS_O_CREATE);
+    // if (ret)
+    // {
+    //     printk("%s -- failed to create file (err = %d)\n", __func__, ret);
+    // }
+    // else
+    // {
+    //     printk("%s - successfully created file\n", __func__);
+    //     sprintf(file_data_buffer, "hello world!\n");
+    //     ret = fs_write(&data_filp, file_data_buffer, strlen(file_data_buffer));
+    //     fs_close(&data_filp);
+    // }
 
     while (!dtr)
     {
