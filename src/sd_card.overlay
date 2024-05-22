@@ -9,6 +9,10 @@ CS, P0.02 (A0)
 
 Battery VDiv connected to
 P0.28 (A2)
+
+UART connected to
+P1.11 (TX)
+P1.12 (RX)
 */
 
 &spi2 {
