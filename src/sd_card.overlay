@@ -1,3 +1,16 @@
+/*
+https://files.seeedstudio.com/wiki/XIAO-BLE/Seeed-Studio-XIAO-nRF52840-Sense-v1.1.pdf
+
+SD card connected to
+MOSI P1.15 (MOSI)
+MISO P1.14 (MISO)
+CLK P1.13 (SCK)
+CS, P0.02 (A0)
+
+Battery VDiv connected to
+P0.28 (A2)
+*/
+
 &spi2 {
     sdhc0: sdhc@0 {
         compatible = "zephyr,sdhc-spi-slot";
@@ -10,9 +23,7 @@
         };
         spi-max-frequency = <20000000>;
     };
-    cs-gpios = <&gpio1 12 0>;
+    cs-gpios = <&gpio0 2 0>;
 };
 
-&uart0 {
-    status = "disabled";
-};
+
