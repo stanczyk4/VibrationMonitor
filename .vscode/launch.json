@@ -1,0 +1,43 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+      {
+        "name": "jlink-nrf52840", // Name to show in debug selection
+        "type": "cortex-debug", // Tell VSCode we're using the cortex-debug extension
+        "request": "launch", // launch or attach debugger to target, launch will flash the chip, attach will not
+        "servertype": "jlink", // Use a JLink as the debugger, other options exist such as STLink but require different settings
+        "cwd": "${workspaceRoot}",
+        "executable": "${command:cmake.launchTargetPath}", // Use the executable CMake has generated
+        "device": "nRF52840_xxAA",
+        "interface": "swd", // Use the SWD connection instead of JTAG
+        "runToEntryPoint": "main", // where to set the first breakpoint after launching, can be any valid function name
+        "serverArgs": [
+          "-gui", // Show the flashing GUI for JLink
+        ],
+        "rtos": "Zephyr", // Tell the debugger we're using Zephyr RTOS
+        "svdFile": "${workspaceRoot}/third_party/nrf52840.svd", // point to the chip's SVD file for register viewing, only enable if desired. Can make debugging slow
+        "rttConfig": {
+          "enabled": true,
+          "address": "auto",
+          "decoders": [
+            {
+              "port": 0,
+              "type": "console",
+              "inputmode": "raw",
+              "timestamp": false,
+              "label": "RTT Output",
+              "noclear": false,
+              "logfile": "${workspaceRoot}/build/rtt.log" // uncomment to output rtt data to a log file
+            }
+          ]
+        },
+        "liveWatch": {
+          "enabled": false, // change to true to enable live watch in debugger
+          "samplesPerSecond": 10
+        }
+      }
+    ]
+  }
